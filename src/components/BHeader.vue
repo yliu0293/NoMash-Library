@@ -13,15 +13,36 @@
         <li class="nav-item">
           <router-link to="/about" class="nav-link" active-class="active">About</router-link>
         </li>
+        <li v-if="!isAuthenticated">
+          <router-link to="/login" class="nav-link" active-class="active">Login</router-link>
+        </li>
+        <li v-else>
+          <!-- <router-link to="/logout" class="nav-link" active-class="active">Logout</router-link> -->
+          <a href="#" class="nav-link" @click.prevent="handleLogout">Logout</a>
+        </li>
       </ul>
     </header>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
-  name: 'BHeader'
-}
+  name: 'BHeader',
+  computed: {
+      ...mapState(['isAuthenticated']),
+    },
+
+  methods: {
+    ...mapActions(['logout']),
+    handleLogout() {
+      this.logout(); 
+      this.$router.push({ name: 'Login' }); // Redirect to Home after logout
+    },
+  }
+};
+
 </script>
 
 <style scoped>

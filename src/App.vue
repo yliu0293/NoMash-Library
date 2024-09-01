@@ -1,9 +1,10 @@
 <script>
-import JSONLab from './components/JSONLab.vue'
+//import JSONLab from './components/JSONLab.vue'
 import BHeader from './components/BHeader.vue'
+
 export default {
   components: {
-    JSONLab,
+    //JSONLab,
     BHeader
   }
 }
