@@ -20,6 +20,12 @@
           <!-- <router-link to="/logout" class="nav-link" active-class="active">Logout</router-link> -->
           <a href="#" class="nav-link" @click.prevent="handleLogout">Logout</a>
         </li>
+        <li class="nav-item">
+          <router-link to="/Firelogin" class="nav-link" active-class="active">Firebase Login</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/Fireregister" class="nav-link" active-class="active">Firebase Register</router-link>
+        </li>
       </ul>
     </header>
   </div>

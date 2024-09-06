@@ -4,6 +4,8 @@ import AboutView from '../views/AboutView.vue'
 import LoginView from '../views/LoginView.vue'
 import store from '../store/store'
 import AccessDeniedView from '../Views/AccessDeniedView.vue'
+import FirebaseSigninView from '../Views/FirebaseSigninView.vue'
+import FirebaseRegisterView from '../Views/FirebaseRegisterView.vue'
 
 const routes = [
   {
@@ -29,7 +31,17 @@ const routes = [
     path: '/access-denied',
     name: 'AccessDenied',
     component: AccessDeniedView
-  }
+  },
+  {
+    path: '/Firelogin',
+    name: 'FireLogin',
+    component: FirebaseSigninView
+  },
+  {
+    path: '/Fireregister',
+    name: 'FireRegister',
+    component: FirebaseRegisterView
+  },
 ]
 
 const router = createRouter({
@@ -37,13 +49,13 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  if (!store.state.isAuthenticated && to.name !== 'Login' && to.name !== 'AccessDenied') {
-    return next({ name: 'AccessDenied' });
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   if (!store.state.isAuthenticated && to.name !== 'Login' && to.name !== 'AccessDenied') {
+//     return next({ name: 'AccessDenied' });
+//   } else {
+//     next();
+//   }
+// });
 
 // Example of another guard that could be used but is commented out:
 // router.beforeEach(async (to, from) => {
