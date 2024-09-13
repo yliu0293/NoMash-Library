@@ -1,32 +1,32 @@
 <template>
   <div>
-    <h2>Book List</h2>
-    <ul v-if="books.length">
+    <h1>Books with ISBN > 1000</h1>
+    <ul>
       <li v-for="book in books" :key="book.id">
-        <strong>{{ book.name }}</strong> - ISBN: {{ book.isbn }}
+        {{ book.name }} - ISBN: {{ book.isbn }}
       </li>
     </ul>
-    <p v-else>No books available.</p>
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from 'vue';
 import db from '../firebase/init.js';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 export default {
-  name: 'BookList',
   setup() {
     const books = ref([]);
 
     const fetchBooks = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'books'));
-        books.value = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
+        const q = query(collection(db, 'books'), where('isbn', '>', 1000));
+        const querySnapshot = await getDocs(q);
+        const booksArray = [];
+        querySnapshot.forEach((doc) => {
+          booksArray.push({ id: doc.id, ...doc.data() });
+        });
+        books.value = booksArray;
       } catch (error) {
         console.error('Error fetching books: ', error);
       }
@@ -37,8 +37,8 @@ export default {
     });
 
     return {
-      books
+      books,
     };
-  }
+  },
 };
 </script>
