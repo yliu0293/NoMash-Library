@@ -1,0 +1,10 @@
+<li v-if="!isAuthenticated">
+          <router-link to="/login" class="nav-link" active-class="active">Login</router-link>
+        </li>
+        <li v-else>
+          <!-- <router-link to="/logout" class="nav-link" active-class="active">Logout</router-link> -->
+          <a href="#" class="nav-link" @click.prevent="handleLogout">Logout</a>
+        </li>
+
+
+        

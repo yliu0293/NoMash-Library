@@ -13,53 +13,55 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth'
-import { getFirestore, doc, getDoc } from 'firebase/firestore'
+import { ref } from 'vue';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import db from '../firebase/init.js'; // Use the existing Firestore initialization
 
-// Initialize Firebase Authentication and Firestore
-const auth = getAuth()
-const db = getFirestore()
+// Initialize Firebase Authentication
+const auth = getAuth();
 
 // Reactive references to store current user and user role
-const currentUser = ref(auth.currentUser)
-const userRole = ref('')
+const currentUser = ref(null);
+const userRole = ref('');
 
 // Function to fetch user role from Firestore
 const fetchUserRole = async (uid) => {
   try {
-    const userDocRef = doc(db, 'users', uid)
-    const userDocSnap = await getDoc(userDocRef)
+    const userDocRef = doc(db, 'users', uid);
+    const userDocSnap = await getDoc(userDocRef);
     if (userDocSnap.exists()) {
-      userRole.value = userDocSnap.data().role
-      console.log('User role:', userRole.value)
+      userRole.value = userDocSnap.data().role;
+      console.log('User role:', userRole.value);
     } else {
-      console.log('No such document for the user!')
+      console.log('No such document for the user!');
     }
   } catch (error) {
-    console.error('Error fetching user role:', error)
+    console.error('Error fetching user role:', error);
   }
-}
+};
 
-//Logout function
+// Logout function
 const logout = () => {
   signOut(auth)
     .then(() => {
-      console.log('User logged out successfully!')
-      currentUser.value = null // Clear user information after logging out
-      userRole.value = '' // Clear user role
+      console.log('User logged out successfully!');
+      currentUser.value = null; // Clear user information after logging out
+      userRole.value = ''; // Clear user role
     })
     .catch((error) => {
-      console.error('Logout error:', error)
-    })
-}
+      console.error('Logout error:', error);
+    });
+};
 
+// Monitor authentication state changes
 onAuthStateChanged(auth, (user) => {
-  currentUser.value = user //update currentUser when authentication state changes
+  currentUser.value = user; // Update currentUser when authentication state changes
   if (user) {
-    console.log('Current user:', user) // display current user in developer mode
+    console.log('Current user:', user); // Display current user in developer mode
+    fetchUserRole(user.uid); // Fetch the user role when the user is logged in
   } else {
-    console.log('No user is currently logged in.')
+    console.log('No user is currently logged in.');
   }
-})
+});
 </script>

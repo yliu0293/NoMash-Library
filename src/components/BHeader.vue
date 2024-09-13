@@ -13,13 +13,10 @@
         <li class="nav-item">
           <router-link to="/about" class="nav-link" active-class="active">About</router-link>
         </li>
-        <li v-if="!isAuthenticated">
-          <router-link to="/login" class="nav-link" active-class="active">Login</router-link>
+        <li class="nav-item">
+          <router-link to="/addbook" class="nav-link" active-class="active">Add Book</router-link>
         </li>
-        <li v-else>
-          <!-- <router-link to="/logout" class="nav-link" active-class="active">Logout</router-link> -->
-          <a href="#" class="nav-link" @click.prevent="handleLogout">Logout</a>
-        </li>
+        
         <li class="nav-item">
           <router-link to="/Firelogin" class="nav-link" active-class="active">Firebase Login</router-link>
         </li>
