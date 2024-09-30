@@ -29,6 +29,15 @@
         <li class="nav-item">
           <router-link to="/logout" class="nav-link" active-class="active">Logout</router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/weatherview" class="nav-link" active-class="active">Get Weather</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/countbookapi" class="nav-link" active-class="active">Count Book API</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/getallbookapi" class="nav-link" active-class="active">Get All Book API</router-link>
+        </li>
       </ul>
     </header>
   </div>

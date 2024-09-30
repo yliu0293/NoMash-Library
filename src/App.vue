@@ -1,12 +1,20 @@
 <script>
 //import JSONLab from './components/JSONLab.vue'
 import BHeader from './components/BHeader.vue'
+import CountBookAPI from './Views/CountBookAPI.vue';
 
 export default {
+  name: 'App',
   components: {
     //JSONLab,
-    BHeader
-  }
+    BHeader,
+    CountBookAPI
+  },
+  computed: {
+    showHeader() {
+      return this.$route.name !== 'CountBookAPI';
+    },
+  },
 }
 </script>
 

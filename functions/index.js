@@ -28,6 +28,26 @@ exports.countBooks = onRequest((req, res) => {
   });
 });
 
+exports.getBooks = onRequest((req, res) => {
+  cors(req, res, async () => {
+    try {
+      const booksCollection = admin.firestore().collection("books");
+      const snapshot = await booksCollection.get();
+
+      // Extract all books data
+      const books = [];
+      snapshot.forEach((doc) => {
+        books.push({ id: doc.id, ...doc.data() });
+      });
+
+      res.status(200).send({ books });
+    } catch (error) {
+      console.error("Error fetching books:", error.message);
+      res.status(500).send("Error fetching books");
+    }
+  });
+});
+
 
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started
