@@ -8,6 +8,8 @@
  */
 
 const { onRequest } = require("firebase-functions/v2/https");
+const { onDocumentCreated } = require("firebase-functions/v2/firestore");
+const { logger } = require("firebase-functions");
 const admin = require("firebase-admin");
 const cors = require("cors")({ origin: true });
 
@@ -46,6 +48,19 @@ exports.getBooks = onRequest((req, res) => {
       res.status(500).send("Error fetching books");
     }
   });
+});
+
+exports.capitalizeBookData = onDocumentCreated("/books/{bookId}", (event) => {
+  const data = event.data.data();
+
+  const capitalizedData = {
+    isbn: data.isbn ? String(data.isbn).toUpperCase() : null,
+    name: data.name ? data.name.toUpperCase() : null,
+  };
+
+  logger.log("Capitalizing book data for", event.params.bookId, capitalizedData);
+
+  return event.data.ref.set(capitalizedData, { merge: true });
 });
 
 
