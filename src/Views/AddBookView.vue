@@ -50,7 +50,7 @@
 
 <script>
 import { ref } from 'vue';
-import db from '../firebase/init.js';
+
 import { collection, addDoc, doc, updateDoc, deleteDoc, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 
 import BookList from '../components/BookList.vue'; // Import the BookList component
