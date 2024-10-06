@@ -16,7 +16,7 @@
 import { ref } from 'vue';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import db from '../firebase/init.js'; // Use the existing Firestore initialization
+ // Use the existing Firestore initialization
 
 // Initialize Firebase Authentication
 const auth = getAuth();
