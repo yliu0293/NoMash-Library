@@ -43,7 +43,6 @@
   // The info section in 10.1.1 provided detailed information about this package 
   import axios from "axios";
 
-  const apikey = "1e0d0df8c48a1874060522d35c566d2b";
   
   export default {
     name: "App",
@@ -76,6 +75,9 @@
           ? `http://api.openweathermap.org/img/w/${this.weatherData.weather[0].icon}.png`
           : null;
       },
+      apikey() {
+        return import.meta.env.WeatherAPIkey;
+      },
     },
     //There are two steps involved in this, 
     //step 1: identify current location 
@@ -93,7 +95,7 @@
           navigator.geolocation.getCurrentPosition(async (position) => {
             const { latitude, longitude } = position.coords;
             //API link to obtain the current weather based on the current location browser identified 
-            const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}`;
+            const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${this.apikey}`;
             //await means wait for the fetchWeatherData method to complete before proceeding
             await this.fetchWeatherData(url);
           });
@@ -110,7 +112,7 @@
       },
       async searchByCity() {
         if (this.city) {
-          const url = `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${apikey}`;
+          const url = `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apikey}`;
           await this.fetchWeatherData(url);
         }
       },
