@@ -60,7 +60,7 @@ export default {
         : null;
     },
     apiKey() {
-      return import.meta.env.WeatherAPIkey;
+      return import.meta.env.VITE_WEATHER_API_KEY;
     },
   },
   mounted() {
