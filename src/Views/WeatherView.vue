@@ -95,7 +95,7 @@
           navigator.geolocation.getCurrentPosition(async (position) => {
             const { latitude, longitude } = position.coords;
             //API link to obtain the current weather based on the current location browser identified 
-            const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${this.apikey}`;
+            const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${this.apikey}&units=metric`;
             //await means wait for the fetchWeatherData method to complete before proceeding
             await this.fetchWeatherData(url);
           });
@@ -112,7 +112,7 @@
       },
       async searchByCity() {
         if (this.city) {
-          const url = `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apikey}`;
+          const url = `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apikey}&units=metric`;
           await this.fetchWeatherData(url);
         }
       },
